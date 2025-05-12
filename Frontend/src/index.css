@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+@theme {
+  /* Font families */
+  --font-heading: "Poppins", sans-serif;
+  --font-body: "Rubik", sans-serif;
+  --font-button: "Montserrat", sans-serif;
+
+  /* Color palette */
+  --color-primary-dark: #222222;
+  --color-light: #eeeeee;
+  --color-accent: #ff6f61;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-body);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+  }
+
+  button {
+    font-family: var(--font-button);
+    font-weight: 500;
+    letter-spacing: .5px;
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .clip-ellipse {
+    clip-path: ellipse(25% 40% at 50% 50%);
+  }
+
+  .animate-pop {
+    animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s infinite linear;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.2) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 200% 100%;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@layer components {
+  .hover-underline-animation {
+    display: inline-block;
+    position: relative;
+  }
+
+  .hover-underline-animation::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-primary-dark);
+    transition: transform 0.25s ease-out;
+  }
+
+  /* Hover: grow from left to right */
+  .hover-underline-animation:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left; /* Start from the left */
+  }
+
+  /* Reverse hover animation: grow from right to left */
+  .hover-underline-reverse {
+    display: inline-block;
+    position: relative;
+  }
+
+  .hover-underline-reverse::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    transform-origin: right;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-primary-dark); /* Set your underline color */
+    transition: transform 0.25s ease-out;
+  }
+
+  /* Hover: grow from right to left */
+  .hover-underline-reverse:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left; /* End the animation from the right */
+  }
+}
