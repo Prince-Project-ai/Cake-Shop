@@ -47,3 +47,21 @@ export const verifyEmail = async (formData) => {
     });
     return res?.data;
 }
+
+export const verifyOtpApi = async (otp) => {
+    const res = await API.post("/verify-otp", otp, {
+        headers: {
+            "Content-Type": "application/json",
+        }
+    });
+    return res?.data;
+}
+
+export const resetPasswordCli = async (formPassword) => {
+    const res = await API.post("/reset-password", formPassword, {
+        headers: {
+            "Content-Type": "application/json",
+        }
+    });
+    return res?.data;
+}

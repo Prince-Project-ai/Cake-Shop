@@ -32,7 +32,8 @@ export const useEmailVerification = () => {
             const res = await verifyEmail(formData);
             if (res?.statusCode === 200) {
                 showToast("Code send successfully.", "success");
-                dispatch(setEmail(""));
+                // comented because in next step we need email that's why
+                // dispatch(setEmail(""));
                 dispatch(setPhase(2));
             }
         } catch (error) {

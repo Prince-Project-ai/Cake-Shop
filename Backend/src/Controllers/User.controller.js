@@ -145,6 +145,7 @@ export const googleSignIn = asyncHandler(async (req, res) => {
     });
 
     // Redirect to the front-end with success
+
     res.redirect('http://localhost:5173');
 
 });
@@ -174,7 +175,7 @@ export const logoutClient = asyncHandler(async (req, res) => {
         .status(200)
         .clearCookie("accessToken", COOKIE_OPTIONS)
         .clearCookie("refreshToken", COOKIE_OPTIONS)
-        .json(new ApiResponse(200, {}, "Logout successfully."));
+        .json(new ApiResponse(200, "Logout successfully.", {}));
 });
 
 
@@ -197,7 +198,7 @@ export const refreshAccessToken = asyncHandler(async (req, res) => {
         .status(200)
         .cookie("accessToken", newAccessToken, COOKIE_OPTIONS)
         .cookie("refreshToken", newRefreshToken, COOKIE_OPTIONS)
-        .json(new ApiResponse(200, {}, "Token Refresh Successfully."));
+        .json(new ApiResponse(200, "Token Refresh Successfully.", {}));
 });
 
 export const verifyEmail = asyncHandler(async (req, res) => {
@@ -254,7 +255,7 @@ export const verifyEmail = asyncHandler(async (req, res) => {
 
     res.
         status(200)
-        .json(new ApiResponse(200, {}, "Message Sent"));
+        .json(new ApiResponse(200, "Message Sent", {}));
 });
 
 
@@ -275,7 +276,7 @@ export const verifyOtp = asyncHandler(async (req, res) => {
     user.otpExpiry = undefined;
     await user.save();
 
-    res.status(200).json(new ApiResponse(200, {}, "OTP verified. You can now reset your password"));
+    res.status(200).json(new ApiResponse(200, "OTP verified. You can now reset your password", {}));
 });
 
 
@@ -291,5 +292,5 @@ export const resetPassword = asyncHandler(async (req, res) => {
     user.password = newPassword; // Hash inside pre-save hook
     await user.save();
 
-    res.status(200).json(new ApiResponse(200, {}, "Password reset successful"));
+    res.status(200).json(new ApiResponse(200, "Password reset successfull", {}));
 });

@@ -16,7 +16,6 @@ export const useFetchCurrentAuth = () => {
                 dispatch(setIsLoggedIn(true));
             }
         } catch (error) {
-            console.log("Authentication check failed:", error?.response?.data?.message || error.message);
             dispatch(setIsLoggedIn(false));
             dispatch(setUserData(null));
         } finally {

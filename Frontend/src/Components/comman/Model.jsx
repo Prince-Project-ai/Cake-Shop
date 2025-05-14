@@ -1,54 +1,39 @@
-    import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { X } from 'lucide-react';
+import { closeModal } from '../../Redux/features/client/GlobalModel/modelSlice';
+import { componentMap } from '../../Utils/componentMap';
 
-// The main Modal component
-const Model = ({
-    isOpen,
-    onClose,
-    title,
-    children,
-    footer,
-    size = "md", // sm, md, lg, xl,full
-    closeOnOverlayClick = true,
-}) => {
+const sizeClasses = {
+    sm: 'max-w-md',
+    md: 'max-w-lg',
+    lg: 'max-w-2xl',
+    xl: 'max-w-4xl',
+    full: 'max-w-full mx-4',
+};
 
-    const modalRef = useRef(null);
 
-    // Handle ESC key to close modal
-    useEffect(() => {
-        const handleEscKey = (e) => {
-            if (e.key === 'Escape' && isOpen) {
-                onClose();
-            }
-        };
+const Model = () => {
+    const dispatch = useDispatch();
+    const {
+        isOpen,
+        modalKey,
+        modalProps,
+        title,
+        footer,
+        size,
+        closeOnOverlayClick,
+    } = useSelector((state) => state.model);
 
-        window.addEventListener('keydown', handleEscKey);
-        return () => window.removeEventListener('keydown', handleEscKey);
-    }, [isOpen, onClose]);
+    if (!isOpen || !modalKey) return null;
 
-    // Focus trap inside modal
-    useEffect(() => {
-        if (isOpen && modalRef.current) {
-            modalRef.current.focus();
-        }
-    }, [isOpen]);
+    const ComponentToRender = componentMap[modalKey];
 
-    if (!isOpen) return null;
 
-    // Handle backdrop click
     const handleBackdropClick = (e) => {
         if (e.target === e.currentTarget && closeOnOverlayClick) {
-            onClose();
+            dispatch(closeModal());
         }
-    };
-
-    // Determine modal width based on size prop
-    const sizeClasses = {
-        sm: "max-w-md",
-        md: "max-w-lg",
-        lg: "max-w-2xl",
-        xl: "max-w-4xl",
-        full: "max-w-full mx-4"
     };
 
     return (
@@ -60,16 +45,14 @@ const Model = ({
             aria-labelledby={title}
         >
             <div
-                ref={modalRef}
-                className={`bg-white outline-none rounded-lg shadow-xl w-full ${sizeClasses[size]} transform transition-all duration-200 ${isOpen ? "scale-100" : "scale-95"
-                    } flex flex-col max-h-[90vh]`} // Add max-h-[90vh] and flex+flex-col to control overall modal height
+                className={`bg-white outline-none rounded-lg shadow-xl w-full ${sizeClasses[size]} transform transition-all duration-200 ${isOpen ? "scale-100" : "scale-95"} flex flex-col max-h-[90vh]`}
                 tabIndex={-1}
             >
-                {/* Modal Header - Always visible */}
+                {/* Modal Header */}
                 <div className="flex items-center justify-between p-3 border-b border-gray-200 shrink-0">
                     <h3 id="modal-title" className="text-lg font-medium text-primary-dark">{title}</h3>
                     <button
-                        onClick={onClose}
+                        onClick={() => dispatch(closeModal())}
                         className="text-gray-400 hover:text-gray-500 focus:outline-none hover:bg-gray-100 p-1 rounded"
                         aria-label="Close modal"
                     >
@@ -77,12 +60,12 @@ const Model = ({
                     </button>
                 </div>
 
-                {/* Modal Body - Scrollable */}
+                {/* Modal Body */}
                 <div className="p-3 overflow-y-auto grow">
-                    {children}
+                    {ComponentToRender ? <ComponentToRender {...modalProps} /> : null}
                 </div>
 
-                {/* Modal Footer - Always visible */}
+                {/* Modal Footer */}
                 {footer && (
                     <div className="p-3 border-t border-gray-200 flex justify-end space-x-2 flex-wrap shrink-0">
                         {footer}
@@ -90,6 +73,7 @@ const Model = ({
                 )}
             </div>
         </div>
+
     );
 };
 

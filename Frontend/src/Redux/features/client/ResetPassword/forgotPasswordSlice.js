@@ -2,10 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     email: "",
-    pin: "",
-    newPassword: "",
-    crmPassword: "",
-    phase: 2,
+    phase: 1,
 }
 
 const forgotPasswordSlice = createSlice({
