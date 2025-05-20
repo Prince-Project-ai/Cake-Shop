@@ -1,12 +1,27 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useState } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import DashboardPage from "../../../Pages/admin/DashboardPage";
+import DashboardLayout from "../../admin/DashboardLayout";
+import SignIn from "../../admin/auth/Component/SignIn";
+import DataTableExample from "../../comman/dashboard/DataTableExample";
 
 const AdminRouter = () => {
     return (
-        <Routes>
-            <Route path="/" element="Admin dashboard file" />
-        </Routes>
+        <DashboardLayout>
+            <Routes>
+                <Route path="/sign-in" element={<SignIn />} />
+                <Route path="/" element={<PrivateRouter><DashboardPage /></PrivateRouter>} />
+                <Route path="/product" element={<DataTableExample />} />
+                <Route path="/order" element={<h1>Ordres Page</h1>} />
+            </Routes>
+        </DashboardLayout>
+
     );
 };
 
-export default AdminRouter;
+export const PrivateRouter = ({ children }) => {
+    if (!true) return <Navigate to="/admin/sign-in" replace />;
+    return children;
+}
+
+export default React.memo(AdminRouter);

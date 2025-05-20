@@ -29,7 +29,6 @@ const Model = () => {
 
     const ComponentToRender = componentMap[modalKey];
 
-
     const handleBackdropClick = (e) => {
         if (e.target === e.currentTarget && closeOnOverlayClick) {
             dispatch(closeModal());

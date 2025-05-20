@@ -3,12 +3,9 @@ import { Eye, EyeOff } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useLoginForm } from "../../../Hooks/useLoginForm";
 import SideCake from "../../../assets/Images/login_page_image/side_cake.jpg";
-import EmailVerify from "../../../Components/client/ForgotPassword/EmailVerify";
-import PinVerify from "../../../Components/client/ForgotPassword/PinVerify";
-import ResetPass from "../../../Components/client/ForgotPassword/ResetPass";
-import { useDispatch, useSelector } from "react-redux";
+
+import { useDispatch } from "react-redux";
 import { openModal } from "../../../Redux/features/client/GlobalModel/modelSlice";
-import ForgotPasswordModal from "../../../Components/client/ForgotPassword/ForgotPasswordModel";
 
 
 
@@ -116,12 +113,14 @@ const Login = () => {
                 </div>
               </div>
 
+
+              {/* 
               <button
                 type="submit"
-                className="w-full py-3 px-6 bg-accent text-white font-medium rounded-lg transition duration-200 font-button text-center shadow-md hover:shadow-lg"
+                className=""
               >
                 Sign In
-              </button>
+              </button> */}
 
               {/* Divider */}
               <div className="relative my-6">

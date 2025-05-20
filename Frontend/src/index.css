@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 @theme {
   /* Font families */
   --font-heading: "Poppins", sans-serif;
@@ -49,21 +50,21 @@
 
   .animate-shimmer {
     animation: shimmer 2s infinite linear;
-    background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.2) 50%,
-      rgba(255, 255, 255, 0) 100%
-    );
+    background: linear-gradient(90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0) 100%);
     background-size: 200% 100%;
   }
 }
 
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -74,6 +75,7 @@
     transform: scale(0.95);
     opacity: 0;
   }
+
   100% {
     transform: scale(1);
     opacity: 1;
@@ -84,6 +86,7 @@
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }
@@ -110,7 +113,8 @@
   /* Hover: grow from left to right */
   .hover-underline-animation:hover::after {
     transform: scaleX(1);
-    transform-origin: bottom left; /* Start from the left */
+    transform-origin: bottom left;
+    /* Start from the left */
   }
 
   /* Reverse hover animation: grow from right to left */
@@ -128,13 +132,28 @@
     transform-origin: right;
     bottom: 0;
     left: 0;
-    background-color: var(--color-primary-dark); /* Set your underline color */
+    background-color: var(--color-primary-dark);
+    /* Set your underline color */
     transition: transform 0.25s ease-out;
   }
 
   /* Hover: grow from right to left */
   .hover-underline-reverse:hover::after {
     transform: scaleX(1);
-    transform-origin: bottom left; /* End the animation from the right */
+    transform-origin: bottom left;
+    /* End the animation from the right */
   }
+}
+
+
+/* Hide scrollbar but allow scrolling */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
 }
